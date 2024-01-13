@@ -11,31 +11,35 @@ async function getSpreadsheetData(spreadsheetId, range) {
 }
 
 function transformSheetDataToObjects(sheetData) {
-  const result = {};
-
-  if (sheetData.length < 2) {
-    return result;
+  if (sheetData.length === 0) {
+    return {};
   }
 
-  const keys = sheetData[0];
-  const values = sheetData[1];
+  const values = sheetData[0];
 
-  keys.forEach((key, i) => {
-    result[key] = values[i] || ''; // Используем пустую строку, если значение отсутствует
-  });
+  const result = {
+    transport: values[0] || '',
+    food: values[1] || '',
+    apartments: values[2] || '',
+    phone: values[3] || '',
+    amount: values[4] || '',
+  };
 
   return result;
 }
 
 const getData = async (req, res, next) => {
   const spreadsheetId = process.env.SPREADSHEET_ID || '160HBHkGINbqB-z1cxKyCHAOsCnilcKl5qynwHgcyogM';
-  const range = process.env.RANGE || 'Vietnam!F12:J13'; // Измененный диапазон
+  const range = process.env.RANGE || 'Vietnam!F13:J13';
 
   try {
     const sheetData = await getSpreadsheetData(spreadsheetId, range);
-    const data = transformSheetDataToObjects(sheetData);
+    if (!sheetData || sheetData.length === 0) {
+      throw new Error('Данные не найдены');
+    }
 
-    return res.status(200).json({ status: 'success', data });
+    const data = transformSheetDataToObjects(sheetData);
+    return res.status(200).json(data);
   } catch (error) {
     return next(error);
   }
@@ -43,10 +47,15 @@ const getData = async (req, res, next) => {
 
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
+  console.error('Error:', err);
+
+  const statusCode = err.statusCode || 500;
+  const message = err.publicMessage || 'Внутренняя ошибка сервера';
+
   if (res && typeof res.status === 'function') {
-    res.status(500).json({
+    res.status(statusCode).json({
       status: 'error',
-      message: err.message || 'Внутренняя ошибка сервера',
+      message,
     });
   } else {
     console.error('Invalid response object:', res);
