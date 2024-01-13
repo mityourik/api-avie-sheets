@@ -41,7 +41,8 @@ const getData = async (req, res, next) => {
   }
 };
 
-function errorHandler(err, req, res) { // Добавьте параметр next
+// eslint-disable-next-line no-unused-vars
+function errorHandler(err, req, res, next) {
   if (res && typeof res.status === 'function') {
     res.status(500).json({
       status: 'error',
