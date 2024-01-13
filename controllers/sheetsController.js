@@ -42,11 +42,14 @@ const getData = async (req, res, next) => {
 };
 
 function errorHandler(err, req, res) { // Добавьте параметр next
-  console.error(err); // Добавлено логирование ошибки
-  res.status(err.status || 500).json({
-    status: 'error',
-    message: err.message || 'Внутренняя ошибка сервера',
-  });
+  if (res && typeof res.status === 'function') {
+    res.status(500).json({
+      status: 'error',
+      message: err.message || 'Внутренняя ошибка сервера',
+    });
+  } else {
+    console.error('Invalid response object:', res);
+  }
 }
 
 module.exports = { getData, errorHandler };
