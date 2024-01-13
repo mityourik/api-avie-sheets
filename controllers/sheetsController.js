@@ -41,4 +41,12 @@ const getData = async (req, res, next) => {
   }
 };
 
-module.exports = { getData };
+function errorHandler(err, req, res) { // Добавьте параметр next
+  console.error(err); // Добавлено логирование ошибки
+  res.status(err.status || 500).json({
+    status: 'error',
+    message: err.message || 'Внутренняя ошибка сервера',
+  });
+}
+
+module.exports = { getData, errorHandler };
