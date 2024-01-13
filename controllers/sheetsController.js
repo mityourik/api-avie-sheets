@@ -29,7 +29,7 @@ function transformSheetDataToObjects(sheetData) {
 
 const getData = async (req, res, next) => {
   const spreadsheetId = process.env.SPREADSHEET_ID || '160HBHkGINbqB-z1cxKyCHAOsCnilcKl5qynwHgcyogM';
-  const range = process.env.RANGE || 'Vietnam!J12:J13';
+  const range = process.env.RANGE || 'Vietnam!F12:J13'; // Измененный диапазон
 
   try {
     const sheetData = await getSpreadsheetData(spreadsheetId, range);
