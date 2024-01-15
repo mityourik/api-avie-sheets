@@ -21,7 +21,7 @@ function transformSheetDataToObjects(sheetData) {
     transport: values[0] || '',
     food: values[1] || '',
     apartments: values[2] || '',
-    phone: values[3] || '',
+    other: values[3] || '',
     amount: values[4] || '',
   };
 
@@ -30,7 +30,7 @@ function transformSheetDataToObjects(sheetData) {
 
 const getData = async (req, res, next) => {
   const spreadsheetId = process.env.SPREADSHEET_ID || '160HBHkGINbqB-z1cxKyCHAOsCnilcKl5qynwHgcyogM';
-  const range = process.env.RANGE || 'Vietnam!F13:J13';
+  const range = process.env.RANGE || 'Vietnam!G13:K13';
 
   try {
     const sheetData = await getSpreadsheetData(spreadsheetId, range);
