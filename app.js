@@ -4,7 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const dataRoutes = require('./routes/dataRoutes');
-const { errorHandler } = require('./controllers/sheetsController');
+const { errorHandler } = require('./middlewares/errorsHandler');
 
 const app = express();
 const port = process.env.PORT || 3000;
