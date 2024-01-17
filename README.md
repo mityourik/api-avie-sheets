@@ -1,7 +1,12 @@
 # Api-Avie-Sheets
 
 ### Description
+
 This project, named "api-avie-sheets," is designed to interact with Blogger Avie's budget data. It is a backend service providing API for accessing or manipulating budget-related data stored in private Google Sheets document.
+
+### Technology stack
+
+node.js / express.js / JavaScript / RESTful API / Googleapis
 
 ### Installation
 
