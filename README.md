@@ -30,6 +30,10 @@ This will start the server, allowing you to interact with the API as defined in 
 - Interaction with Google Sheets data.
 - API routes for handling various requests related to budget data.
 
+### Planned features
+
+Include adding the capability to interact with a Google Sheets spreadsheet that will allow viewing expenses based on parameters such as expenses by dates and expenses by categories.
+
 ### Contributing
 
 Contributions to the project are welcome. Please follow these steps:
